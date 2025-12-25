@@ -24,3 +24,4 @@ class ConflictException(message: String) :
 
 class InternalServerErrorException(message: String) :
     AppException(message, HttpStatusCode.InternalServerError)
+

@@ -73,7 +73,7 @@ class ProfileControllers(private val profileService: ProfileService) {
                     when (part.name) {
                         "fullName" -> fullName = part.value
                         "email" -> email = part.value
-                        "phone" -> phone = part.value
+                        "phoneNumber" -> phone = part.value
                         "gender" -> gender = part.value
                         "eventsAttended" -> eventsAttended = part.value.toIntOrNull()
                     }

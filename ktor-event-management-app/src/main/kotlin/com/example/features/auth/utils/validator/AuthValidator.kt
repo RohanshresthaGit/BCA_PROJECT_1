@@ -63,7 +63,7 @@ fun validateSignup(field: SignUpRequestModel): Result<String>
         return Result.failure(Exception("Password must contain at least one special character (!@#\$%^&* etc.)"))
 
     // 🧩 Role Validation
-    val allowedRoles = listOf("user", "admin", "driver")
+    val allowedRoles = listOf("user", "admin", "organizer")
     if (role.lowercase() !in allowedRoles)
         return Result.failure(Exception("Role must be one of the following: ${allowedRoles.joinToString(", ")}"))
 

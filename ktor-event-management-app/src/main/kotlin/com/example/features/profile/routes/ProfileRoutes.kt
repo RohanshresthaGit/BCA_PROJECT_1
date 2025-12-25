@@ -13,7 +13,7 @@ fun Route.profileRoutes(profileController: ProfileControllers){
         authenticate {
             get("/{id}") {
                 val id = call.parameters["id"]?.toIntOrNull() ?: throw BadRequestException("Missing id.")
-                if (!authorize(call, listOf(UserRole.USER, UserRole.ADMIN), targetUserId = id)) {
+                if (!authorize(call, listOf(UserRole.USER, UserRole.ADMIN, UserRole.ORGANIZER), targetUserId = id)) {
                     throw ForbiddenException("You are not allowed to access this resource.")
                 }
 
@@ -21,12 +21,15 @@ fun Route.profileRoutes(profileController: ProfileControllers){
             }
 
             get {
+                if (!authorize(call,  listOf(UserRole.ADMIN))) {
+                    throw ForbiddenException("You are not allowed to access this resource.")
+                }
                 profileController.getAllProfiles(call)
             }
 
             patch("/{id}") {
                 val id = call.parameters["id"]?.toIntOrNull() ?: throw BadRequestException("Invalid or missing user id.")
-                if (!authorize(call, listOf(UserRole.USER, UserRole.ADMIN), targetUserId = id)) {
+                if (!authorize(call, listOf(UserRole.USER, UserRole.ADMIN, UserRole.ORGANIZER), targetUserId = id)) {
                     throw ForbiddenException("You are not allowed to access this resource.")
                 }
                 profileController.updateUserProfile(call)
@@ -34,7 +37,7 @@ fun Route.profileRoutes(profileController: ProfileControllers){
 
             delete("/{id}") {
                 val id = call.parameters["id"]?.toIntOrNull() ?: throw BadRequestException("Missing id.")
-                if (!authorize(call, listOf(UserRole.USER, UserRole.ADMIN), targetUserId = id)) {
+                if (!authorize(call, listOf(UserRole.USER, UserRole.ADMIN, UserRole.ORGANIZER), targetUserId = id)) {
                     throw ForbiddenException("You are not allowed to update this profile.")
                 }
                 profileController.deleteUserProfile(call)

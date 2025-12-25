@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Applicationkt" type="JetRunConfigurationType">
+    <envs>
+      <env name="JWT_SECRET" value="jwt-secret" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.example.ApplicationKt" />
+    <option name="REDIRECT_INPUT" value="true" />
+    <shortenClasspath name="NONE" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ktor-event-management-app" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
