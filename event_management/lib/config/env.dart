@@ -7,7 +7,9 @@ class Env {
   static Future<void> load({String fileName = '.env'}) async {
     try {
       await dotenv.load(fileName: fileName);
-    } catch (_) {}
+    } catch (e) {
+      throw Exception('Failed to load environment file: ${e.toString()}');
+    }
   }
 
   /// API base URL (`API_BASE_URL` in .env). Falls back to a sensible default.

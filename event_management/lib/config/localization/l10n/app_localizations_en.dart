@@ -91,4 +91,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get decline => 'Decline';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get orContinueWith => 'Or continue with';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get dontHaveAccount => "Don't have an account?";
+
+  @override
+  String get invalidCredentials =>
+      'Invalid credentials. Please check your email and password.';
+
+  @override
+  String get weakPassword => 'Password is too weak.';
+
+  @override
+  String get emailAlreadyInUse => 'Email is already in use.';
+
+  @override
+  String get userNotFound => 'User not found.';
+
+  @override
+  String get passwordMismatch => 'Passwords do not match.';
+
+  @override
+  String get sessionExpired => 'Session expired. Please log in again.';
+
+  @override
+  String get permissionDenied => 'Permission denied.';
 }

@@ -91,4 +91,45 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get decline => 'अस्वीकार गर्नुहोस्';
+
+  @override
+  String get signUp => 'दर्ता गर्नुहोस्';
+
+  @override
+  String get fullName => 'पुरा नाम';
+
+  @override
+  String get confirmPassword => 'पासवर्ड पुष्टि गर्नुहोस्';
+
+  @override
+  String get orContinueWith => 'वा संग जारी राख्नुहोस्';
+
+  @override
+  String get alreadyHaveAccount => 'पहिले नै खाता छ?';
+
+  @override
+  String get dontHaveAccount => 'खाता छैन?';
+
+  @override
+  String get invalidCredentials =>
+      'अमान्य प्रमाणपत्र। कृपया इमेल र पासवर्ड जाँच गर्नुहोस्।';
+
+  @override
+  String get weakPassword => 'पासवर्ड कमजोर छ।';
+
+  @override
+  String get emailAlreadyInUse => 'इमेल पहिले नै प्रयोगमा छ।';
+
+  @override
+  String get userNotFound => 'प्रयोगकर्ता फेला परेन।';
+
+  @override
+  String get passwordMismatch => 'पासवर्डहरू मेल खाँदैनन्।';
+
+  @override
+  String get sessionExpired =>
+      'अनुच्छेद समाप्त भयो। कृपया पुन: लगइन गर्नुहोस्।';
+
+  @override
+  String get permissionDenied => 'अनुमति अस्वीकृत';
 }

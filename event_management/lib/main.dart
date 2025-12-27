@@ -15,7 +15,7 @@ Future<void> main() async {
   // Print for quick debug; remove in production
   print(Env.apiBaseUrl);
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp( ProviderScope(child: DevicePreview(builder:(context) =>  MyApp())));
 }
 
 class MyApp extends ConsumerWidget {
@@ -29,25 +29,23 @@ class MyApp extends ConsumerWidget {
         final locale = ref.watch(languageProvider);
         final theme = ref.watch(themeProvider);
 
-        return DevicePreview(
-          builder: (context) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Localized App',
-            theme: theme ? ThemeData.light() : ThemeData.dark(),
-            locale: locale,
-            localizationsDelegates: const [
-              AppLocalizations.delegate, // Custom generated localization
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'), // English
-              Locale('ne'), // Nepali
-            ],
-            initialRoute: AppRoutes.home,
-            onGenerateRoute: AppRoutes.generateRoute,
-          ),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Localized App',
+          theme: theme ? ThemeData.light() : ThemeData.dark(),
+          locale: locale,
+          localizationsDelegates: const [
+            AppLocalizations.delegate, // Custom generated localization
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'), // English
+            Locale('ne'), // Nepali
+          ],
+          initialRoute: AppRoutes.home,
+          onGenerateRoute: AppRoutes.generateRoute,
         );
       },
     );
