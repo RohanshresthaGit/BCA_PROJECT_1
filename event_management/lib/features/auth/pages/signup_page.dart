@@ -77,20 +77,37 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             children: [
               _buildHeader(context),
               const SizedBox(height: 32),
-              _buildNameField(context),
+              CustomTextField(
+                controller: _nameController,
+                label: context.l10n.fullName,
+                hintText: 'John Doe',
+                keyboardType: TextInputType.name,
+                prefixIcon: const Icon(Icons.person),
+                validator: AuthValidator.validateFullName,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+              ),
               const SizedBox(height: 16),
-              _buildEmailField(context),
+              CustomTextField(
+                controller: _emailController,
+                label: context.l10n.email,
+                hintText: 'user@example.com',
+                keyboardType: TextInputType.emailAddress,
+                prefixIcon: const Icon(Icons.email),
+                validator: AuthValidator.validateEmail,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+              ),
               const SizedBox(height: 16),
               _buildPasswordField(context, signupForm, isLoading),
               const SizedBox(height: 16),
               _buildConfirmPasswordField(context, signupForm, isLoading),
               const SizedBox(height: 28),
-              _buildSignUpButton(context, isLoading),
+              PrimaryButton(
+      label: context.l10n.signUp,
+      loading: isLoading,
+      width: double.infinity,
+      onPressed: isLoading ? null : _handleSignup,
+    ),
               const SizedBox(height: 20),
-              _buildDivider(context),
-              const SizedBox(height: 20),
-              _buildSocialButtons(context, isLoading),
-              const SizedBox(height: 24),
               _buildLoginLink(context, isLoading),
             ],
           ),
@@ -107,13 +124,12 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: context.colorScheme.primary.withOpacity(0.1),
+              color: context.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Icon(
-              Icons.person_add,
-              size: 40,
-              color: context.colorScheme.primary,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset('assets/logo.png', width: 40, height: 40),
             ),
           ),
           const SizedBox(height: 24),
@@ -132,30 +148,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildNameField(BuildContext context) {
-    return CustomTextField(
-      controller: _nameController,
-      label: context.l10n.fullName,
-      hintText: 'John Doe',
-      keyboardType: TextInputType.name,
-      prefixIcon: const Icon(Icons.person),
-      validator: AuthValidator.validateFullName,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-    );
-  }
-
-  Widget _buildEmailField(BuildContext context) {
-    return CustomTextField(
-      controller: _emailController,
-      label: context.l10n.email,
-      hintText: 'user@example.com',
-      keyboardType: TextInputType.emailAddress,
-      prefixIcon: const Icon(Icons.email),
-      validator: AuthValidator.validateEmail,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 
@@ -226,60 +218,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     );
   }
 
-  Widget _buildSignUpButton(BuildContext context, bool isLoading) {
-    return PrimaryButton(
-      label: context.l10n.signUp,
-      loading: isLoading,
-      width: double.infinity,
-      onPressed: isLoading ? null : _handleSignup,
-    );
-  }
-
-  Widget _buildDivider(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(child: Divider()),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            context.l10n.orContinueWith,
-            style: context.textTheme.bodySmall,
-          ),
-        ),
-        const Expanded(child: Divider()),
-      ],
-    );
-  }
-
-  Widget _buildSocialButtons(BuildContext context, bool isLoading) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _SocialButton(
-          icon: Icons.g_mobiledata,
-          label: 'Google',
-          onPressed: isLoading
-              ? null
-              : () => context.showSnackBar('Google signup coming soon'),
-        ),
-        _SocialButton(
-          icon: Icons.facebook,
-          label: 'Facebook',
-          onPressed: isLoading
-              ? null
-              : () => context.showSnackBar('Facebook signup coming soon'),
-        ),
-        _SocialButton(
-          icon: Icons.apple,
-          label: 'Apple',
-          onPressed: isLoading
-              ? null
-              : () => context.showSnackBar('Apple signup coming soon'),
-        ),
-      ],
-    );
-  }
-
   Widget _buildLoginLink(BuildContext context, bool isLoading) {
     return Center(
       child: Row(
@@ -299,30 +237,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SocialButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback? onPressed;
-
-  const _SocialButton({
-    required this.icon,
-    required this.label,
-    this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon),
-      label: Text(label),
-      style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       ),
     );
   }

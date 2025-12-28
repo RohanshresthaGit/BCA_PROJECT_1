@@ -299,7 +299,7 @@ abstract class AppLocalizations {
   /// No description provided for @dontHaveAccount.
   ///
   /// In en, this message translates to:
-  /// **"Don't have an account?"**
+  /// **'Don\'t have an account?'**
   String get dontHaveAccount;
 
   /// No description provided for @invalidCredentials.

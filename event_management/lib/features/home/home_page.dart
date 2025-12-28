@@ -1,8 +1,8 @@
-import 'package:event_management/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../config/themes/theme_provider.dart';
 import '../../config/localization/language_provider.dart';
+import '../../core/extensions/build_context_extension.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key, required this.title});
@@ -23,7 +23,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -78,6 +77,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                       },
                       icon: const Icon(Icons.language),
                       label: const Text('Nepali'),
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        context.goToLogin();
+                      },
+                      icon: const Icon(Icons.check),
+                      label: const Text('Login'),
                     ),
                   ],
                 );

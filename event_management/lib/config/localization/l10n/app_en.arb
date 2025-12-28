@@ -1,5 +1,57 @@
 {
   "@@locale": "en",
+
   "helloWorld": "Hello World",
-  "welcomeMessage": "Welcome to our app!"
+  "welcomeMessage": "Welcome to our app!",
+
+  "login": "Login",
+  "logout": "Logout",
+
+  "username": "Username",
+  "password": "Password",
+  "email": "Email",
+
+  "cancel": "Cancel",
+  "save": "Save",
+  "confirm": "Confirm",
+
+  "yes": "Yes",
+  "no": "No",
+
+  "settings": "Settings",
+  "profile": "Profile",
+  "home": "Home",
+  "search": "Search",
+
+  "submit": "Submit",
+  "loading": "Loading...",
+  "loadingFailed": "Loading failed",
+
+  "networkError": "Network error. Please check your connection.",
+  "retry": "Retry",
+  "ok": "OK",
+
+  "unauthorized": "Unauthorized",
+  "notFound": "Not found",
+  "serverError": "Server error",
+  "tryAgain": "Try again",
+
+  "accept": "Accept",
+  "decline": "Decline",
+
+  "signUp": "Sign Up",
+  "fullName": "Full name",
+  "confirmPassword": "Confirm Password",
+
+  "orContinueWith": "Or continue with",
+  "alreadyHaveAccount": "Already have an account?",
+  "dontHaveAccount": "Don't have an account?",
+
+  "invalidCredentials": "Invalid credentials. Please check your email and password.",
+  "weakPassword": "Password is too weak.",
+  "emailAlreadyInUse": "Email is already in use.",
+  "userNotFound": "User not found.",
+  "passwordMismatch": "Passwords do not match.",
+  "sessionExpired": "Session expired. Please log in again.",
+  "permissionDenied": "Permission denied."
 }

@@ -12,10 +12,7 @@ import 'core/app_routes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Env.load(fileName: '.env');
-  // Print for quick debug; remove in production
-  print(Env.apiBaseUrl);
-
-  runApp( ProviderScope(child: DevicePreview(builder:(context) =>  MyApp())));
+  runApp(ProviderScope(child: DevicePreview(builder: (context) => MyApp())));
 }
 
 class MyApp extends ConsumerWidget {

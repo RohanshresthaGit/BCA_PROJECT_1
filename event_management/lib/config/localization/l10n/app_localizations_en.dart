@@ -108,7 +108,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get alreadyHaveAccount => 'Already have an account?';
 
   @override
-  String get dontHaveAccount => "Don't have an account?";
+  String get dontHaveAccount => 'Don\'t have an account?';
 
   @override
   String get invalidCredentials =>
