@@ -19,8 +19,16 @@ class AuthSuccess extends AuthState {
   final String userId;
   final String email;
   final String? fullName;
+  final String? token;
+  final String? role;
 
-  const AuthSuccess({required this.userId, required this.email, this.fullName});
+  const AuthSuccess({
+    required this.userId,
+    required this.email,
+    this.fullName,
+    this.token,
+    this.role,
+  });
 }
 
 /// Error state
@@ -62,6 +70,7 @@ class SignupState {
   final String email;
   final String password;
   final String confirmPassword;
+  final String role;
   final bool showPassword;
   final bool showConfirmPassword;
 
@@ -70,6 +79,7 @@ class SignupState {
     this.email = '',
     this.password = '',
     this.confirmPassword = '',
+    this.role = 'user',
     this.showPassword = false,
     this.showConfirmPassword = false,
   });
@@ -79,6 +89,7 @@ class SignupState {
     String? email,
     String? password,
     String? confirmPassword,
+    String? role,
     bool? showPassword,
     bool? showConfirmPassword,
   }) {
@@ -87,6 +98,7 @@ class SignupState {
       email: email ?? this.email,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
+      role: role ?? this.role,
       showPassword: showPassword ?? this.showPassword,
       showConfirmPassword: showConfirmPassword ?? this.showConfirmPassword,
     );

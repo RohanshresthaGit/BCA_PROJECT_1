@@ -1,12 +1,17 @@
+import 'package:event_management/core/app_routes.dart';
+import 'package:event_management/core/extensions/build_context_extension.dart';
+import 'package:event_management/core/extensions/string_role_extension.dart';
+import 'package:event_management/features/auth/models/signup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:event_management/core/extensions/build_context_extension.dart';
+
 import '../../../config/localization/language_provider.dart';
+import '../../../config/storage/shared_prefs_service.dart';
 import '../../../config/themes/theme_provider.dart';
+import '../../../core/commom/components/components_export.dart';
 import '../models/auth_state.dart';
 import '../validators/auth_validator.dart';
 import '../viewmodels/auth_view_model.dart';
-import '../../../core/commom/components/components_export.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -25,6 +30,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadSavedCredentials());
+  }
+
+  Future<void> _loadSavedCredentials() async {
+    await SharedPrefsService.instance.init();
+    final savedEmail = SharedPrefsService.instance.getEmail();
+    final savedPassword = SharedPrefsService.instance.getPassword();
+    if (savedEmail != null || savedPassword != null) {
+      setState(() {
+        if (savedEmail != null) _emailController.text = savedEmail;
+        if (savedPassword != null) _passwordController.text = savedPassword;
+      });
+    }
   }
 
   @override
@@ -54,8 +72,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref.listen(authViewModelProvider, (previous, next) {
       if (next is AuthSuccess) {
         context.showSuccessSnackBar('Welcome ${next.email}');
-        // Navigate to home
-        // context.goToHome();
+        // Navigate based on role using extension
+        final userRole = next.role.toUserRole();
+        if (userRole == UserRole.ADMIN) {
+          Navigator.of(context).pushReplacementNamed(AppRoutes.adminDashboard);
+        } else if (userRole == UserRole.ORGANIZER) {
+          Navigator.of(
+            context,
+          ).pushReplacementNamed(AppRoutes.organizerDashboard);
+        } else if (userRole == UserRole.USER) {
+          Navigator.of(context).pushReplacementNamed(AppRoutes.userDashboard);
+        } else {
+          context.goToHome();
+        }
       } else if (next is AuthError) {
         context.showErrorSnackBar(next.message);
       }

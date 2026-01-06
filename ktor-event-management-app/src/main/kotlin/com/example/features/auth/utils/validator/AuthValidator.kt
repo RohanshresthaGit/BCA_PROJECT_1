@@ -29,11 +29,6 @@ fun validateSignup(field: SignUpRequestModel): Result<String>
     if (username.length < 3)
         return Result.failure(Exception("Username must be at least 3 characters long"))
 
-    if (username.length > 20)
-        return Result.failure(Exception("Username must not exceed 20 characters"))
-
-    if (!username.matches(Regex("^[a-zA-Z0-9._-]+$")))
-        return Result.failure(Exception("Username can only contain letters, numbers, dots, underscores, and hyphens"))
 
     // ✉️ Email Validation
     val emailRegex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")

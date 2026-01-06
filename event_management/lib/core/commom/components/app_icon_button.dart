@@ -7,12 +7,12 @@ class AppIconButton extends StatelessWidget {
   final Color? color;
 
   const AppIconButton({
-    Key? key,
+    super.key,
     required this.icon,
     this.onPressed,
     this.size = 24.0,
     this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

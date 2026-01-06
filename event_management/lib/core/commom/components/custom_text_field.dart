@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final StringValidator? validator;
   final void Function(String)? onChanged;
   final AutovalidateMode autovalidateMode;
+  final bool readOnly;
 
   const CustomTextField({
     Key? key,
@@ -26,11 +27,13 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.autovalidateMode = AutovalidateMode.disabled,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,

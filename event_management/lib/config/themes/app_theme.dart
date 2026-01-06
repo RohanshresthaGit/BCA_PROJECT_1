@@ -5,7 +5,9 @@ class AppTheme {
   static const Color primaryColor = Colors.deepPurple;
 
   // Common border radius
-  static const BorderRadius defaultRadius = BorderRadius.all(Radius.circular(12));
+  static const BorderRadius defaultRadius = BorderRadius.all(
+    Radius.circular(12),
+  );
 
   // ---------------- LIGHT THEME ----------------
   static final ThemeData lightTheme = ThemeData(
@@ -20,8 +22,6 @@ class AppTheme {
       onPrimary: Colors.white,
       secondary: Colors.deepPurpleAccent,
       onSecondary: Colors.white,
-      background: Colors.white,
-      onBackground: Colors.black,
       surface: Colors.white,
       onSurface: Colors.black,
       error: Colors.red,
@@ -34,7 +34,11 @@ class AppTheme {
       elevation: 2,
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
     ),
 
     // ---------------- DRAWER ----------------
@@ -48,16 +52,44 @@ class AppTheme {
 
     // ---------------- TEXT ----------------
     textTheme: const TextTheme(
-      displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black),
-      displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
-      displaySmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
-      headlineLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-      headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-      headlineSmall: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
+      displayLarge: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      displayMedium: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      headlineLarge: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
       bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
       bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
       bodySmall: TextStyle(fontSize: 12, color: Colors.black54),
-      labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+      labelLarge: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
       labelMedium: TextStyle(fontSize: 12, color: Colors.black87),
       labelSmall: TextStyle(fontSize: 10, color: Colors.black54),
     ),
@@ -161,6 +193,7 @@ class AppTheme {
 
     // ---------------- BOTTOM NAVIGATION ----------------
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
       selectedItemColor: primaryColor,
       unselectedItemColor: Colors.black54,
@@ -169,14 +202,21 @@ class AppTheme {
 
     // ---------------- TOOLTIP ----------------
     tooltipTheme: const TooltipThemeData(
-      decoration: BoxDecoration(color: Colors.black87, borderRadius: defaultRadius),
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: defaultRadius,
+      ),
       textStyle: TextStyle(color: Colors.white),
     ),
 
     // ---------------- DIALOG ----------------
     dialogTheme: DialogThemeData(
       backgroundColor: Colors.white,
-      titleTextStyle: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+      titleTextStyle: const TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
       contentTextStyle: const TextStyle(color: Colors.black87, fontSize: 14),
       shape: RoundedRectangleBorder(borderRadius: defaultRadius),
     ),
@@ -202,8 +242,6 @@ class AppTheme {
       onPrimary: Colors.white,
       secondary: Colors.deepPurpleAccent,
       onSecondary: Colors.white,
-      background: const Color(0xFF2A1A3D),
-      onBackground: Colors.white,
       surface: const Color(0xFF3C1F57),
       onSurface: Colors.white,
       error: Colors.redAccent,
@@ -216,7 +254,11 @@ class AppTheme {
       elevation: 2,
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
     ),
 
     // ---------------- DRAWER ----------------
@@ -230,16 +272,44 @@ class AppTheme {
 
     // ---------------- TEXT ----------------
     textTheme: const TextTheme(
-      displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
-      displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
-      displaySmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-      headlineLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-      headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
-      headlineSmall: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+      displayLarge: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+      displayMedium: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+      headlineLarge: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
       bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
       bodyMedium: TextStyle(fontSize: 14, color: Colors.white70),
       bodySmall: TextStyle(fontSize: 12, color: Colors.white54),
-      labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+      labelLarge: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
       labelMedium: TextStyle(fontSize: 12, color: Colors.white70),
       labelSmall: TextStyle(fontSize: 10, color: Colors.white54),
     ),
@@ -343,6 +413,7 @@ class AppTheme {
 
     // ---------------- BOTTOM NAVIGATION ----------------
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
       backgroundColor: Color(0xFF3C1F57),
       selectedItemColor: primaryColor,
       unselectedItemColor: Colors.white70,
@@ -351,14 +422,21 @@ class AppTheme {
 
     // ---------------- TOOLTIP ----------------
     tooltipTheme: const TooltipThemeData(
-      decoration: BoxDecoration(color: Colors.black87, borderRadius: defaultRadius),
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: defaultRadius,
+      ),
       textStyle: TextStyle(color: Colors.white),
     ),
 
     // ---------------- DIALOG ----------------
     dialogTheme: DialogThemeData(
       backgroundColor: const Color(0xFF3C1F57),
-      titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+      titleTextStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
       contentTextStyle: const TextStyle(color: Colors.white70, fontSize: 14),
       shape: RoundedRectangleBorder(borderRadius: defaultRadius),
     ),

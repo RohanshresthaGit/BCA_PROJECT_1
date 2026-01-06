@@ -32,3 +32,11 @@ class Spaces {
   static const SizedBox w24 = SizedBox(width: 24);
   static const SizedBox w32 = SizedBox(width: 32);
 }
+
+class BorderCurve {
+  BorderCurve._();
+
+  static const Radius sm = Radius.circular(8);
+  static const Radius md = Radius.circular(16);
+  static const Radius lg = Radius.circular(24);
+}

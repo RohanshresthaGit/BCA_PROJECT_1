@@ -53,5 +53,19 @@
   "userNotFound": "User not found.",
   "passwordMismatch": "Passwords do not match.",
   "sessionExpired": "Session expired. Please log in again.",
-  "permissionDenied": "Permission denied."
+  "permissionDenied": "Permission denied.",
+  "dashboard" : "Dashboard",
+  "profile" : "Profile",
+  "phone" : "Phone",
+  "eventsAttended" : "Events Attended",
+  "gender" : "Gender",
+  "personalInformation" : "Personal Information",
+  "role" : "Role",
+  "edit" : "Edit",
+  "editProfile" : "Edit Profile",
+  "selectGender" : "Select Gender",
+  "male": "Male",
+  "female": "Female",
+  "other": "Other",
+  "profilePicture": "Profile Picture"
 }

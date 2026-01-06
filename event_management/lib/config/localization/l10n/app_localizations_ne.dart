@@ -132,4 +132,43 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get permissionDenied => 'अनुमति अस्वीकृत';
+
+  @override
+  String get dashboard => 'ड्यासबोर्ड';
+
+  @override
+  String get phone => 'फोन';
+
+  @override
+  String get eventsAttended => 'सहभागी कार्यक्रमहरू';
+
+  @override
+  String get gender => 'लिङ्ग';
+
+  @override
+  String get personalInformation => 'व्यक्तिगत जानकारी';
+
+  @override
+  String get role => 'भूमिका';
+
+  @override
+  String get edit => 'सम्पादन';
+
+  @override
+  String get editProfile => 'प्रोफाइल सम्पादन';
+
+  @override
+  String get selectGender => 'लिङ्ग चयन गर्नुहोस्';
+
+  @override
+  String get male => 'पुरुष';
+
+  @override
+  String get female => 'महिला';
+
+  @override
+  String get other => 'अन्य';
+
+  @override
+  String get profilePicture => 'प्रोफाइल तस्बिर';
 }

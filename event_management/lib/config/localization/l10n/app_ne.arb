@@ -53,5 +53,18 @@
   "userNotFound": "प्रयोगकर्ता फेला परेन।",
   "passwordMismatch": "पासवर्डहरू मेल खाँदैनन्।",
   "sessionExpired": "अनुच्छेद समाप्त भयो। कृपया पुन: लगइन गर्नुहोस्।",
-  "permissionDenied": "अनुमति अस्वीकृत"
+  "permissionDenied": "अनुमति अस्वीकृत",
+  "dashboard" : "ड्यासबोर्ड",
+  "phone" : "फोन",
+  "eventsAttended" : "सहभागी कार्यक्रमहरू",
+  "gender" : "लिङ्ग",
+  "personalInformation" : "व्यक्तिगत जानकारी",
+  "role" : "भूमिका",
+  "edit" : "सम्पादन",
+  "editProfile" : "प्रोफाइल सम्पादन",
+  "selectGender" : "लिङ्ग चयन गर्नुहोस्",
+  "male": "पुरुष",
+  "female": "महिला",
+  "other": "अन्य",
+  "profilePicture": "प्रोफाइल तस्बिर"
 }

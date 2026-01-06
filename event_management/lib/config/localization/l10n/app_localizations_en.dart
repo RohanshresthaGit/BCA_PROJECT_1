@@ -131,4 +131,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get permissionDenied => 'Permission denied.';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get eventsAttended => 'Events Attended';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get personalInformation => 'Personal Information';
+
+  @override
+  String get role => 'Role';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get selectGender => 'Select Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get profilePicture => 'Profile Picture';
 }

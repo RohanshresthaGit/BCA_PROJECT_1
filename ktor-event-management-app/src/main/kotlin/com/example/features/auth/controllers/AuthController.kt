@@ -62,13 +62,13 @@ class AuthController (
             val result = authService.login(request)
 
             if (result.isSuccess) {
-                val token = result.getOrNull()
+                val user = result.getOrNull()
                 call.respond(
                     HttpStatusCode.OK,
                     LoginResponse(
                         success = true,
                         message = "Login successful",
-                        token = token,
+                        user = user,
 
                     )
                 )

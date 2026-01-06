@@ -41,11 +41,13 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   void _handleSignup() async {
     if (_formKey.currentState!.validate()) {
       final viewModel = ref.read(authViewModelProvider.notifier);
+      final signupForm = ref.read(signupFormProvider);
       await viewModel.signUp(
-        fullName: _nameController.text.trim(),
+        userName: _nameController.text.trim(),
         email: _emailController.text.trim(),
         password: _passwordController.text,
         confirmPassword: _confirmPasswordController.text,
+        role: signupForm.role,
       );
     }
   }
@@ -95,6 +97,27 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 prefixIcon: const Icon(Icons.email),
                 validator: AuthValidator.validateEmail,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
+              ),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                value: signupForm.role,
+                decoration: InputDecoration(
+                  labelText: 'Role',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'user', child: Text('User')),
+                  DropdownMenuItem(value: 'organizer', child: Text('Organizer')),
+                ],
+                onChanged: isLoading
+                    ? null
+                    : (val) {
+                        ref
+                            .read(signupFormProvider.notifier)
+                            .update((state) => state.copyWith(role: val));
+                      },
               ),
               const SizedBox(height: 16),
               _buildPasswordField(context, signupForm, isLoading),

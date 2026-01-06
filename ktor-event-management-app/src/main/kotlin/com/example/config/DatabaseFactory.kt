@@ -13,8 +13,12 @@ object DatabaseFactory {
             password = "secret"
             driverClassName = "org.postgresql.Driver"
             isReadOnly = false
-            maximumPoolSize = 7
+            maximumPoolSize = 10
             transactionIsolation = "TRANSACTION_SERIALIZABLE"
+             connectionTimeout = 30_000
+             idleTimeout = 600_000
+             maxLifetime = 1_800_000
+             leakDetectionThreshold = 2_000
         }
         Database.connect( HikariDataSource(config))
     }

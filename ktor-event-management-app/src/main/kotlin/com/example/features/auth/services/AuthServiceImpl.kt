@@ -12,6 +12,7 @@ import com.example.features.auth.repositories.UserRepository
 import com.example.validators.validateLogin
 import com.example.validators.validateSignup
 import io.ktor.http.*
+import kotlinx.serialization.Serializable
 
 class AuthServiceImpl(
     private val userRepository: UserRepository,
@@ -42,7 +43,7 @@ class AuthServiceImpl(
 
     }
 
-    override suspend fun login(request: LoginRequest): Result< String> {
+    override suspend fun login(request: LoginRequest): Result< AuthResponse> {
 
      validateLogin(request).fold(
          onSuccess = {},
@@ -73,10 +74,18 @@ print(user.password)
             TokenClaim("email", user.email),
             TokenClaim("role", user.role)
         )
+        val res = AuthResponse(token, user.id.toString(), user.role)
 
 //        val token = tokenService.generate(tokenConfig)
-        return Result.success(  token)
+        return Result.success(  res, )
     }
 
 
 }
+
+@Serializable
+data class AuthResponse(
+    val token: String,
+    val userId: String,
+    val role: String
+)

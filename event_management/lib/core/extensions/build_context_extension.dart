@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:event_management/config/localization/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 
 /// Extension on BuildContext for common UI operations
 extension BuildContextExt on BuildContext {
@@ -18,6 +18,10 @@ extension BuildContextExt on BuildContext {
   /// Get app bar theme color
   Color? get appBarColor => Theme.of(this).appBarTheme.backgroundColor;
 
+  double get width => MediaQuery.of(this).size.width;
+
+  double get height => MediaQuery.of(this).size.height;
+
   /// Show snackbar with message
   void showSnackBar(
     String message, {
@@ -26,7 +30,7 @@ extension BuildContextExt on BuildContext {
   }) {
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(message, style: const TextStyle(color: Colors.white)),
         duration: duration,
         backgroundColor: backgroundColor,
       ),

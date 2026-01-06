@@ -7,6 +7,6 @@ import com.example.features.auth.models.dto.SignUpResponseModel
 
 interface AuthService {
     suspend fun register(request: SignUpRequestModel): Result<User>
-    suspend fun login(request: LoginRequest): Result<String>
+    suspend fun login(request: LoginRequest): Result<AuthResponse>
 }
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../config/localization/l10n/app_localizations.dart';
 
 /// Extensions on `BuildContext` for localization, navigation and responsiveness.
 extension ContextExtensions on BuildContext {
   /// Shortcut to generated localization
-  AppLocalizations get l10n => AppLocalizations.of(this);
 
   /// Navigator shortcuts
   NavigatorState get nav => Navigator.of(this);
@@ -27,6 +25,8 @@ extension ContextExtensions on BuildContext {
   /// Screen dimensions and responsive helpers
   double get sw => MediaQuery.of(this).size.width;
   double get sh => MediaQuery.of(this).size.height;
+
+  ThemeData get theme => Theme.of(this);
 
   bool get isMobile => sw < 600;
   bool get isTablet => sw >= 600 && sw < 1024;

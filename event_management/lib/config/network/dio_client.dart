@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:dio/dio.dart';
+
 import '../env.dart';
 import 'exceptions.dart';
 

@@ -1,4 +1,6 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:event_management/config/network/dio_client.dart';
 import 'package:event_management/config/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,11 +9,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'config/env.dart';
 import 'config/localization/l10n/app_localizations.dart';
 import 'config/localization/language_provider.dart';
+import 'config/storage/shared_prefs_service.dart';
 import 'core/app_routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Env.load(fileName: '.env');
+  await SharedPrefsService.instance.init();
+  DioClient().init(
+    baseUrl: Env.apiBaseUrl,
+    tokenGetter: () async => SharedPrefsService.instance.getToken(),
+  );
   runApp(ProviderScope(child: DevicePreview(builder: (context) => MyApp())));
 }
 
@@ -31,6 +39,7 @@ class MyApp extends ConsumerWidget {
           title: 'Localized App',
           theme: theme ? ThemeData.light() : ThemeData.dark(),
           locale: locale,
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
           localizationsDelegates: const [
             AppLocalizations.delegate, // Custom generated localization
             GlobalMaterialLocalizations.delegate,
