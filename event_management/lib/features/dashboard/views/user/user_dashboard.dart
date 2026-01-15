@@ -3,6 +3,8 @@ import 'package:event_management/features/dashboard/views/profile_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/extensions/build_context_extension.dart';
+import '../../../events/views/event_view.dart';
+import '../../../events/views/search_event_view.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -14,11 +16,13 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   late final ValueNotifier<int> _selectedIndex;
   late int userId;
+  late String role;
   @override
   void initState() {
     super.initState();
     _selectedIndex = ValueNotifier<int>(0);
     userId = SharedPrefsService.instance.getUserId() ?? 0;
+    role = SharedPrefsService.instance.getRole() ?? 'USER';
   }
 
   @override
@@ -30,8 +34,8 @@ class _UserDashboardState extends State<UserDashboard> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> screens = [
-      Center(child: Text(context.l10n.home)),
-      Center(child: Text(context.l10n.search)),
+      EventScreen(role: role, userId: userId),
+      EventSearchPage(role: role, userId: userId,),
       ProfileView(userId: userId),
     ];
     return Scaffold(
@@ -40,7 +44,6 @@ class _UserDashboardState extends State<UserDashboard> {
         valueListenable: _selectedIndex,
         builder: (context, value, child) {
           return BottomNavigationBar(
-            
             selectedFontSize: 18,
             iconSize: 20,
             selectedIconTheme: IconThemeData(size: 24),

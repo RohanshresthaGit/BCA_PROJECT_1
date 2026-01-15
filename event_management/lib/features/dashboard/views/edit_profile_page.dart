@@ -4,22 +4,25 @@ import 'dart:io';
 import 'package:event_management/core/commom/components/components_export.dart';
 import 'package:event_management/core/commom/services/image_picker_service.dart';
 import 'package:event_management/core/commom/utils/spacing.dart';
+import 'package:event_management/features/dashboard/model/update_profile_model.dart';
+import 'package:event_management/features/dashboard/view_model/providers/profile_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/storage/shared_prefs_service.dart';
 import '../../../core/constants/shared_constants.dart';
 import '../../../core/extensions/build_context_extension.dart';
 import '../../../core/extensions/context_extensions.dart';
 
-class EditProfilePage extends StatefulWidget {
+class EditProfilePage extends ConsumerStatefulWidget {
   const EditProfilePage({super.key, required this.userId});
   final int userId;
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
+  ConsumerState<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
+class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
@@ -71,9 +74,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     // Fallback to individual saved values
     final savedEmail = SharedPrefsService.instance.getEmail();
-    final savedPhone = SharedPrefsService.instance.getString('phone');
     if (savedEmail != null) _emailController.text = savedEmail;
-    if (savedPhone != null) _phoneController.text = savedPhone;
   }
 
   @override
@@ -89,18 +90,45 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (_formKey.currentState!.validate()) {
       context.showSuccessSnackBar('Profile saved');
     }
+    final req = UpdateProfileRequest(
+      userId: widget.userId,
+      fullName: _nameController.text.trim(),
+      phoneNumber: _phoneController.text,
+      gender: _gender.value,
+      profilePhoto: _newProfilePicture,
+    );
+    ref.read(profileNotifierProvider.notifier).updateProfile(req);
   }
 
   String? _validatePhone(String? v) {
-    if (v == null || v.trim().isEmpty) return 'Phone is required';
-    if (!RegExp(r'^\+?[0-9]{7,15}\$').hasMatch(v.trim())) {
-      return 'Invalid phone number';
+    if (v == null || v.trim().isEmpty) return null; // optional field
+
+    final value = v.trim();
+
+    final nepaliPhoneRegex = RegExp(r'^(?:\+977|977)?9[78]\d{8}$');
+
+    if (!nepaliPhoneRegex.hasMatch(value)) {
+      return 'Invalid Nepali phone number';
     }
+
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
+    final updateState = ref.watch(profileNotifierProvider);
+    ref.listen(profileNotifierProvider, (previous, next) {
+      next.whenOrNull(
+        data: (msg) {
+          if (msg == null) return;
+          context.showSuccessSnackBar(msg);
+          Navigator.pop(context); // go back to profile
+        },
+        error: (e, _) {
+          context.showErrorSnackBar(e.toString());
+        },
+      );
+    });
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.editProfile)),
       body: Padding(
@@ -145,7 +173,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 Spaces.h24,
                 CustomTextField(
-                  
                   controller: _nameController,
                   label: context.l10n.fullName,
                   hintText: 'John Doe',
@@ -162,15 +189,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 12),
                 CustomTextField(
+                  readOnly: true,
                   controller: _emailController,
                   label: context.l10n.email,
                   hintText: 'user@example.com',
                   keyboardType: TextInputType.emailAddress,
                   validator: (v) {
-                    if (v == null || v.isEmpty) return 'Email is required';
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v)) {
-                      return 'Invalid email';
-                    }
                     return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -224,8 +248,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 20),
                 PrimaryButton(
-                  label: context.l10n.save,
-                  onPressed: _saveProfile,
+                  label: updateState.isLoading
+                      ? context.l10n.saving
+                      : context.l10n.save,
+                  loading: updateState.isLoading,
+                  onPressed: updateState.isLoading ? null : _saveProfile,
                 ),
               ],
             ),

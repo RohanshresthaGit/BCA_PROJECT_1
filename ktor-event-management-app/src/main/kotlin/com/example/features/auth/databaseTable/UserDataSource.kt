@@ -15,7 +15,7 @@ object Users: Table("users"){
         val profilePicture = varchar("profilePicture", length = 200).nullable()
         val phone = varchar("phone", length = 10).nullable()
         val gender = varchar("gender", 6).nullable()
-        val eventsAttended = integer("eventsAttended").nullable()
+        val eventsAttended = integer("eventsAttended").default(0).nullable()
         val updatedAt = varchar("updatedAt", length = 20).nullable()
 
         override val primaryKey = PrimaryKey(id)

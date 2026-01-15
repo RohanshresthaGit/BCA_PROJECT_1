@@ -171,4 +171,34 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get profilePicture => 'प्रोफाइल तस्बिर';
+
+  @override
+  String get saving => 'सेभ हुदै छ';
+
+  @override
+  String get delete => 'मेटाउनुहोस्';
+
+  @override
+  String get events => 'कार्यक्रमहरू';
+
+  @override
+  String get free => 'निःशुल्क';
+
+  @override
+  String get noEventsFound => 'कुनै कार्यक्रमहरू फेला परेन';
+
+  @override
+  String get searchEvent => 'कार्यक्रम खोज्नुहोस्';
+
+  @override
+  String get maps => 'नक्सा';
+
+  @override
+  String get attend => 'उपस्थित हुनु';
+
+  @override
+  String get createEvent => 'कार्यक्रम सिर्जना गर्नुहोस्';
+
+  @override
+  String get editEvent => 'कार्यक्रम सम्पादन गर्नुहोस्';
 }

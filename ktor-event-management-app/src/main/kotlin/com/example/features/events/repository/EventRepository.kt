@@ -14,13 +14,13 @@ class EventRepository {
 
     private val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
-    fun createEvent(request: CreateEventRequest,): Int? = transaction {
+    fun createEvent(request: CreateEventRequest,): EventDto? = transaction {
 
         val now = LocalDateTime.now()
         val id = Events.insertAndGetId {
             it[eventName] = request.eventName
             it[description] = request.description
-            it[organizedBy] = request.organizedBy
+            it[organizer_id] = request.organizer_id.toInt()
             it[eventPhotoPath] = request.eventPhotoPath
 //            it[dateFrom] = LocalDateTime.parse(request.dateFrom, formatter)
             it[dateFrom] = request.dateFrom
@@ -35,8 +35,8 @@ class EventRepository {
             it[updatedAt] = now.toString()
         }.value
         println("ID: $id")
-     id
-//        findById(id)
+//     id
+        getEventById(id)
     }
 
 //    fun findById(id: Int): EventDto? = transaction {
@@ -101,7 +101,7 @@ class EventRepository {
             id = row[Events.id].value,
             eventName = row[Events.eventName],
             description = row[Events.description],
-            organizedBy = row[Events.organizedBy],
+            organizer_id= row[Events.organizer_id].toString(),
             dateFrom = row[Events.dateFrom],
             dateTo = row[Events.dateTo],
             timeFrom = row[Events.timeFrom],

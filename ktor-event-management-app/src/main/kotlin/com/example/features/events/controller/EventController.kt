@@ -22,7 +22,7 @@ class EventController(private val service: EventService) {
     suspend fun createEvent(call: ApplicationCall) {
         var eventName = ""
         var description: String? = null
-        var organizedBy = ""
+        var organizer_id = "0"
         var dateFrom = ""
         var dateTo = ""
         var timeFrom = ""
@@ -33,13 +33,14 @@ class EventController(private val service: EventService) {
         var eventPhotoUrl: String? = null
 
         val multipart = call.receiveMultipart()
+
         multipart.forEachPart { part ->
             when (part) {
                 is PartData.FormItem -> {
                     when (part.name) {
                         "eventName" -> eventName = part.value
                         "description" -> description = part.value
-                        "organizedBy" -> organizedBy = part.value
+                        "organizer_id" -> organizer_id = part.value
                         "dateFrom" -> dateFrom = part.value
                         "dateTo" -> dateTo = part.value
                         "timeFrom" -> timeFrom = part.value
@@ -57,13 +58,14 @@ class EventController(private val service: EventService) {
                 }
                 else -> {}
             }
+
             part.dispose()
         }
 
         val request = CreateEventRequest(
             eventName = eventName,
             description = description,
-            organizedBy = organizedBy,
+            organizer_id = organizer_id,
             eventPhotoPath = eventPhotoUrl ?: "",
             dateFrom = dateFrom,
             dateTo = dateTo,
@@ -73,6 +75,7 @@ class EventController(private val service: EventService) {
             latitude = latitude,
             longitude = longitude
         )
+
         EventValidator.validate(request)
         service.createEvent(request).fold(
             onSuccess = { message ->

@@ -4,6 +4,7 @@ ktor:
             - com.example.ApplicationKt.module
     deployment:
         port: 8080
+        host: 0.0.0.0
         watch:
           - classes   # <-- auto-reload watches compiled classes
     development: true

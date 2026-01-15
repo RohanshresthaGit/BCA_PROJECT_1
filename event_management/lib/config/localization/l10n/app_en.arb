@@ -67,5 +67,15 @@
   "male": "Male",
   "female": "Female",
   "other": "Other",
-  "profilePicture": "Profile Picture"
+  "profilePicture": "Profile Picture",
+  "saving": "Saving",
+  "delete" : "Delete",
+  "events" : "Events",
+  "free" : "Free",
+  "noEventsFound" : "No Events Found",
+  "searchEvent" : "Search Event",
+  "maps" : "Maps",
+  "attend" : "Attend",
+  "createEvent": "Create Event",
+  "editEvent": "Edit Event"
 }

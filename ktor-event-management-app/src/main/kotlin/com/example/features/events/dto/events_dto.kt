@@ -9,7 +9,7 @@ data class EventDto(
     val id: Int,
     val eventName: String,
     val description: String?,
-    val organizedBy: String,
+    val organizer_id: String,
     val dateFrom: String,
     val dateTo: String,
     val timeFrom: String,
@@ -26,7 +26,7 @@ data class EventDto(
 data class CreateEventRequest(
     val eventName: String,
     val description: String? = null,
-    val organizedBy: String,
+    val organizer_id: String,
     val eventPhotoPath: String?,
     val dateFrom: String, // ISO format: 2024-12-25T00:00:00
     val dateTo: String ,

@@ -1,7 +1,5 @@
 import 'package:event_management/core/app_routes.dart';
 import 'package:event_management/core/extensions/build_context_extension.dart';
-import 'package:event_management/core/extensions/string_role_extension.dart';
-import 'package:event_management/features/auth/models/signup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +28,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadSavedCredentials());
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _loadSavedCredentials(),
+    );
   }
 
   Future<void> _loadSavedCredentials() async {
@@ -72,19 +72,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref.listen(authViewModelProvider, (previous, next) {
       if (next is AuthSuccess) {
         context.showSuccessSnackBar('Welcome ${next.email}');
-        // Navigate based on role using extension
-        final userRole = next.role.toUserRole();
-        if (userRole == UserRole.ADMIN) {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.adminDashboard);
-        } else if (userRole == UserRole.ORGANIZER) {
-          Navigator.of(
-            context,
-          ).pushReplacementNamed(AppRoutes.organizerDashboard);
-        } else if (userRole == UserRole.USER) {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.userDashboard);
-        } else {
-          context.goToHome();
-        }
+        Navigator.of(context).pushReplacementNamed(AppRoutes.userDashboard);
+        // // Navigate based on role using extension
+        // final userRole = next.role.toUserRole();
+        // if (userRole == UserRole.ADMIN) {
+        //   Navigator.of(context).pushReplacementNamed(AppRoutes.adminDashboard);
+        // } else if (userRole == UserRole.ORGANIZER) {
+        //   Navigator.of(
+        //     context,
+        //   ).pushReplacementNamed(AppRoutes.organizerDashboard);
+        // } else if (userRole == UserRole.USER) {
+        //   Navigator.of(context).pushReplacementNamed(AppRoutes.userDashboard);
+        // } else {
+        //   context.goToHome();
+        // }
       } else if (next is AuthError) {
         context.showErrorSnackBar(next.message);
       }
@@ -96,14 +97,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           icon: Icons.dark_mode,
           onPressed: () {
             final currentTheme = ref.read(themeProvider);
-            ref.read(themeProvider.notifier).switchMode(!currentTheme);
+            ref.read(themeProvider.notifier).toggleTheme();
           },
         ),
         AppIconButton(
           icon: Icons.language,
           onPressed: () {
             final currentLocale = ref.read(languageProvider);
-            final newLocale = currentLocale.languageCode == 'en'
+            final newLocale = currentLocale.asData?.value.languageCode == 'en'
                 ? const Locale('ne')
                 : const Locale('en');
             ref

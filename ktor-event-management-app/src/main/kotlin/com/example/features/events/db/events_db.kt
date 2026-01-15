@@ -6,13 +6,14 @@ import com.example.features.auth.databaseTable.Users.nullable
 import com.example.features.auth.databaseTable.Users.uniqueIndex
 import org.jetbrains.exposed.v1.core.Table
 import org.jetbrains.exposed.v1.core.dao.id.IntIdTable
+import org.jetbrains.exposed.v1.core.isNotNull
 
 object Events : IntIdTable("events") {
 //    val id = integer("id").autoIncrement().uniqueIndex()
     val eventName = varchar("eventName", 255)
     val eventPhotoPath = varchar("eventPhotoPath", length = 300).nullable()
     val description = text("description").nullable()
-    val organizedBy = varchar("organizedBy", 100)
+    val organizer_id = integer("organizer_id")
     val dateFrom = varchar("dateFrom", 10)
     val dateTo = varchar("dateTo", 10)
     val timeFrom = varchar("timeFrom", 10)

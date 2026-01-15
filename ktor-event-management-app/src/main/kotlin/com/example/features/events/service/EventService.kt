@@ -15,11 +15,10 @@ import java.io.File
 
 class EventService(private val repository: EventRepository) {
 
-    fun createEvent(request: CreateEventRequest): Result<String> {
-
+    fun createEvent(request: CreateEventRequest): Result<EventDto> {
         val event = repository.createEvent(request)
             ?: throw ConflictException("Failed to create event")
-        return Result.success("Event Created Successfully with id: $event")
+        return Result.success(event)
     }
 
     fun getEventById(id: Int): Result<EventDto> {

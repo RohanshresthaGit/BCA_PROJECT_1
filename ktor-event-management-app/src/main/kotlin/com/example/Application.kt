@@ -8,6 +8,7 @@ import com.example.core.plugins.configureSerialization
 import com.example.core.plugins.security.hashing.SHA256HashingService
 import com.example.core.plugins.security.token.JwtTokenService
 import com.example.core.plugins.security.token.TokenConfig
+import com.example.features.BookEvents.DatabaseTable.EventBookings
 import com.example.features.auth.controllers.AuthController
 import com.example.features.auth.repositories.UserRepository
 import com.example.features.auth.services.AuthServiceImpl
@@ -35,6 +36,7 @@ fun Application.module() {
     DatabaseFactory.init()
     transaction {
         SchemaUtils.create(Events)
+        SchemaUtils.create(EventBookings)
     }
 //    val userDataSource = UserDataSource(databaseFactory.database)
     val tokenService = JwtTokenService()

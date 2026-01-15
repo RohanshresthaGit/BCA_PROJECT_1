@@ -1,44 +1,66 @@
-import 'package:event_management/core/commom/components/components_export.dart';
-import 'package:event_management/core/extensions/context_extensions.dart';
-import 'package:event_management/features/dashboard/view_model/providers/profile_providers.dart';
+import 'package:event_management/features/dashboard/model/user_profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/localization/language_provider.dart';
+import '../../../config/storage/shared_prefs_service.dart';
 import '../../../config/themes/theme_provider.dart';
+import '../../../core/commom/components/app_icon_button.dart';
+import '../../../core/commom/components/primary_button.dart';
+import '../../../core/commom/components/profile_avatar.dart';
 import '../../../core/commom/utils/spacing.dart';
 import '../../../core/extensions/build_context_extension.dart';
+import '../../../core/extensions/context_extensions.dart';
 import '../../../core/extensions/string_role_extension.dart';
 import '../../auth/models/signup_model.dart';
+import '../view_model/providers/profile_providers.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key, required this.userId});
-  final int userId; // Example user ID
+  final int userId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileViewState();
+  ConsumerState<ProfileView> createState() => _ProfileViewState();
 }
 
 class _ProfileViewState extends ConsumerState<ProfileView> {
   @override
   Widget build(BuildContext context) {
-    final profile = ref.watch(futureProfileModelProvider(widget.userId));
+    final profileState = ref.watch(fetchProfileProvider(widget.userId));
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          ref.read(deleteProfileProvider(widget.userId).future).whenComplete(
+            () {
+              SharedPrefsService.instance.clearAll();
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+          );
+        },
+        label: Text(context.l10n.delete),
+      ),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: AppIconButton(
+          icon: Icons.logout,
+          onPressed: () {
+            SharedPrefsService.instance.clearAll();
+            Navigator.pushReplacementNamed(context, '/login');
+          },
+        ),
         actions: [
           AppIconButton(
             icon: Icons.dark_mode,
             onPressed: () {
               final currentTheme = ref.read(themeProvider);
-              ref.read(themeProvider.notifier).switchMode(!currentTheme);
+              ref.read(themeProvider.notifier).toggleTheme();
             },
           ),
           AppIconButton(
             icon: Icons.language,
             onPressed: () {
               final currentLocale = ref.read(languageProvider);
-              final newLocale = currentLocale.languageCode == 'en'
+              final newLocale = currentLocale.asData?.value.languageCode == 'en'
                   ? const Locale('ne')
                   : const Locale('en');
               ref
@@ -56,68 +78,80 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         ),
         centerTitle: true,
       ),
-      body: profile.when(
+      body: profileState.when(
+        loading: () => _loading(),
+        error: (error, stackTrace) => Center(child: Text(error.toString())),
         data: (data) => data.match(
-          (error) => Center(child: Text(error)),
-          (success) => SingleChildScrollView(
-            child: Column(
-              children: [
-                _profileHeader(context, success.profilePicture ?? ''),
-                Spaces.h4,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      success.fullName ?? 'N/A',
-                      style: context.theme.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    if (success.role.toUserRole() != UserRole.USER) ...[
-                      Spaces.w8,
-                      const Icon(Icons.verified, color: Colors.blue, size: 20),
-                    ],
-                  ],
-                ),
-                Spaces.h16,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          (l) => Center(child: Text(l)),
+          (data) => RefreshIndicator.adaptive(
+            onRefresh: () async {
+              ref.refresh(fetchProfileProvider(widget.userId));
+            },
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Column(
+                children: [
+                  _profileHeader(context, data.profilePicture ?? ''),
+                  Spaces.h4,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        context.l10n.personalInformation,
-                        style: context.theme.textTheme.titleLarge,
+                        data.fullName ?? 'N/A',
+                        style: context.theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      AppTextButtonIcon(
-                        padding: EdgeInsets.zero,
-                        icon: Icon(Icons.edit),
-                        label: context.l10n.editProfile,
-                        onPressed: () {
-                          context.pushNamed(
-                            '/editProfile',
-                            arguments: {'userId': widget.userId.toString()},
-                          );
-                        },
-                        end: true,
-                      ),
+                      if (data.role.toUserRole() != UserRole.USER) ...[
+                        Spaces.w8,
+                        const Icon(
+                          Icons.verified,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                      ],
                     ],
                   ),
-                ),
-                _infoCard(success),
-              ],
+                  Spaces.h16,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          context.l10n.personalInformation,
+                          style: context.theme.textTheme.titleLarge,
+                        ),
+                        AppTextButtonIcon(
+                          padding: EdgeInsets.zero,
+                          icon: Icon(Icons.edit),
+                          label: context.l10n.editProfile,
+                          onPressed: () {
+                            context.pushNamed(
+                              '/editProfile',
+                              arguments: {'userId': widget.userId.toString()},
+                            );
+                          },
+                          end: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                  _infoCard(data),
+                ],
+              ),
             ),
           ),
         ),
-        loading: () => _loading(),
-        error: (error, stackTrace) => Center(child: Text(error.toString())),
       ),
     );
   }
 
   Center _loading() {
-    return const Center(
+    return Center(
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircularProgressIndicator(),
           Spaces.h16,
@@ -154,12 +188,11 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     );
   }
 
-  Widget _infoCard(dynamic profile) {
-    // profile is UserProfileModel
-    final email = profile.email ?? 'N/A';
-    final phone = profile.phone ?? 'N/A';
-    final gender = profile.gender ?? 'N/A';
-    final events = profile.eventsAttended?.toString() ?? '0';
+  Widget _infoCard(UserProfileModel? profile) {
+    final email = profile?.email ?? 'N/A';
+    final phone = profile?.phone ?? 'N/A';
+    final gender = profile?.gender ?? 'N/A';
+    final events = profile?.eventsAttended?.toString() ?? '0';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
@@ -192,13 +225,14 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 title: Text(context.l10n.gender),
                 subtitle: Text(gender),
               ),
-              ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.event),
-                title: Text(context.l10n.eventsAttended),
-                subtitle: Text(events),
-              ),
+              if (profile?.role == UserRole.USER.name)
+                ListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.event),
+                  title: Text(context.l10n.eventsAttended),
+                  subtitle: Text(events),
+                ),
             ],
           ),
         ),

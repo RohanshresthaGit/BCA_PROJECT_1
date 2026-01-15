@@ -170,4 +170,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profilePicture => 'Profile Picture';
+
+  @override
+  String get saving => 'Saving';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get events => 'Events';
+
+  @override
+  String get free => 'Free';
+
+  @override
+  String get noEventsFound => 'No Events Found';
+
+  @override
+  String get searchEvent => 'Search Event';
+
+  @override
+  String get maps => 'Maps';
+
+  @override
+  String get attend => 'Attend';
+
+  @override
+  String get createEvent => 'Create Event';
+
+  @override
+  String get editEvent => 'Edit Event';
 }

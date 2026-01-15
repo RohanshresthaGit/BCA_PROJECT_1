@@ -1,5 +1,6 @@
 package com.example.core.plugins
 
+import com.example.features.BookEvents.Routes.bookingRoutes
 import com.example.features.auth.controllers.AuthController
 import com.example.features.auth.routes.authRoutes
 import com.example.features.events.controller.EventController
@@ -18,5 +19,8 @@ fun Application.configureRouting(
         authRoutes(authController)
         profileRoutes(profileController)
         eventRoutes(eventController)
+        bookingRoutes()
+
+
     }
 }

@@ -22,7 +22,7 @@ fun Application.eventRoutes(controller: EventController) {
                 }
 
                 get {
-                    if (!authorize(call, listOf(UserRole.ADMIN))) {
+                    if (!authorize(call, listOf(UserRole.ADMIN, UserRole.USER, UserRole.ORGANIZER))) {
                         throw ForbiddenException("You are not allowed to access this resource.")
                     }
                     controller.getAllEvents(call)
@@ -47,7 +47,7 @@ fun Application.eventRoutes(controller: EventController) {
 
                 delete("/{id}") {
                     val id = call.parameters["id"]?.toIntOrNull() ?: throw BadRequestException("Missing id.")
-                    if (!authorize(call, listOf( UserRole.ADMIN, UserRole.ORGANIZER), targetUserId = id)) {
+                    if (!authorize(call, listOf( UserRole.ADMIN, UserRole.ORGANIZER))) {
                         throw ForbiddenException("You are not allowed to access this resource.")
                     }
                     controller.deleteEvent(call)

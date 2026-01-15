@@ -421,6 +421,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile Picture'**
   String get profilePicture;
+
+  /// No description provided for @saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving'**
+  String get saving;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @events.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get events;
+
+  /// No description provided for @free.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get free;
+
+  /// No description provided for @noEventsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Events Found'**
+  String get noEventsFound;
+
+  /// No description provided for @searchEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Event'**
+  String get searchEvent;
+
+  /// No description provided for @maps.
+  ///
+  /// In en, this message translates to:
+  /// **'Maps'**
+  String get maps;
+
+  /// No description provided for @attend.
+  ///
+  /// In en, this message translates to:
+  /// **'Attend'**
+  String get attend;
+
+  /// No description provided for @createEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Event'**
+  String get createEvent;
+
+  /// No description provided for @editEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Event'**
+  String get editEvent;
 }
 
 class _AppLocalizationsDelegate

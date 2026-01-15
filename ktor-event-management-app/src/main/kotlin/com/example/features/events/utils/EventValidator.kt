@@ -16,9 +16,6 @@ class EventValidator {
                 if (request.eventName.isBlank())
                     throw BadRequestException("Event name is required")
 
-                if (request.organizedBy.isBlank()   )
-                    throw BadRequestException("Organizer name is required")
-
                 if (request.address.isBlank())
                     throw BadRequestException("Event address is required")
                 val fromDate = LocalDate.parse(request.dateFrom)
@@ -34,6 +31,8 @@ class EventValidator {
 
                 // 3. Time validation (HH:mm)
                 val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                println("here im adf")
+
                 val fromTime = LocalTime.parse(request.timeFrom, timeFormatter)
                 val toTime = LocalTime.parse(request.timeTo, timeFormatter)
 
@@ -47,10 +46,11 @@ class EventValidator {
 //                }
 
             } catch (e: DateTimeParseException) {
+                print("----------------")
                 throw BadRequestException("Invalid date or time format")
             }  catch (e: Exception) {
                 // fallback safety
-                throw BadRequestException("Failed to create event")
+                throw BadRequestException("Failed to create event $e")
             }
         }
     }

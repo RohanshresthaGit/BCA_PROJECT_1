@@ -51,6 +51,12 @@ class SharedPrefsService {
     return _prefs!.clear();
   }
 
+  Future<void> clearOnLogout() async {
+    await init();
+    await remove(SharedConstants.accessToken);
+    await remove(SharedConstants.userRole);
+  }
+
   Future<bool> saveToken(String token) async =>
       saveString(SharedConstants.accessToken, token);
   String? getToken() => getString(SharedConstants.accessToken);
